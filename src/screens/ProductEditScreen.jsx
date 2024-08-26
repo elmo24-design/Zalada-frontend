@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
+import Message from "../components/Message";
 //Actions
 import { listProductDetails, updateProduct } from "../actions/productActions";
 //Components
@@ -29,11 +29,7 @@ const ProductEditScreen = () => {
   const { loading, error, product } = productDetails;
 
   const productUpdate = useSelector((state) => state.productUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = productUpdate;
+  const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate;
 
   useEffect(() => {
     if (successUpdate) {
@@ -67,14 +63,9 @@ const ProductEditScreen = () => {
         },
       };
 
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/api/upload`,
-        formData,
-        config
-      );
+      const { data } = await axios.post(`${process.env.REACT_APP_API}/api/upload`, formData, config);
 
       setImage(data);
-      console.log(data);
       setUploading(false);
     } catch (error) {
       console.error(error);
@@ -166,9 +157,7 @@ const ProductEditScreen = () => {
             </Form.Group>
 
             <Form.Group controlId="countInStock" className="mb-3">
-              <Form.Label className="font-weight-bold">
-                Count In Stock
-              </Form.Label>
+              <Form.Label className="font-weight-bold">Count In Stock</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Enter count in stock"
